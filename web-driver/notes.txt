@@ -1,0 +1,6 @@
+url para download do chromeDriver
+>> https://chromedriver.chromium.org/downloads
+
+1 - efetuar download referente a versão do seu navegador chrome
+2 - extrair a pasta download
+3 - abrir a pasta e copiar o chromedriver.exe e colocar na pasta "web-driver" do projeto
