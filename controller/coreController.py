@@ -26,8 +26,15 @@ class Core :
         bad_seguidos=True
         while True:
             sleep(1)
-            goods = driver.find_element("xpath","//div[@class='entries']").find_elements("xpath","//span[@class='good']")
-            bads = driver.find_element("xpath","//div[@class='entries']").find_elements("xpath","//span[@class='bad']")
+            try:
+                goods = driver.find_element("xpath","//div[@class='entries']").find_elements("xpath","//span[@class='good']")
+                bads = driver.find_element("xpath","//div[@class='entries']").find_elements("xpath","//span[@class='bad']")
+            except Exception as e:
+                driver.close()
+                driver.get(url)
+                sleep(5)
+                logger.error(e)
+
             if fisrt:
                 ultimo_good=goods[0].text
                 ultimo_bad=bads[0].text
@@ -52,9 +59,9 @@ class Core :
                         datetime.now(timezone(tzoffset)).strftime('%d-%m-%Y %H:%M:%S.%f')[:-3],
                         datetime.timestamp(datetime.now(timezone(tzoffset))))
                         db.createDocument(con, state[0], state[1], state[2], state[3], state[4], state[5])
-                        entries.append(state)
+                        #entries.append(state)
                     except Exception as e:
-                        logger.error(e)
+                        logger.error(str(e)+'>>'+str(goods[0].text)+','+str(players[0].text)+','+str(total_cache[len(total_cache)-1].text)+' bads >>{'+str(bads)+'} goods >> {'+str(goods)+'}')
                     print('ENTROU GOOD > '+goods[0].text)
                     logger.info('ENTROU GOOD > '+goods[0].text)
                     
@@ -79,12 +86,12 @@ class Core :
                         datetime.now(timezone(tzoffset)).strftime('%d-%m-%Y %H:%M:%S.%f')[:-3],
                         datetime.timestamp(datetime.now(timezone(tzoffset))))
                         db.createDocument(con, state[0], state[1], state[2], state[3], state[4], state[5])
-                        entries.append(state) 
+                        #entries.append(state) 
                     except Exception as e:
-                        logger.error(e)
+                        logger.error(str(e)+'>>'+str(bads[0].text)+','+str(players[0].text)+','+str(total_cache[len(total_cache)-1].text)+' bads >>{'+str(bads)+'} goods >> {'+str(goods)+'}')
                     
                     print('ENTROU BAD > '+bads[0].text)
-                    logger.info('ENTROU BAD'+bads[0].text) 
+                    logger.info('ENTROU BAD >'+bads[0].text) 
                     bad_seguidos= True
                     
 
@@ -109,9 +116,9 @@ class Core :
                         datetime.now(timezone(tzoffset)).strftime('%d-%m-%Y %H:%M:%S.%f')[:-3],
                         datetime.timestamp(datetime.now(timezone(tzoffset))))
                         db.createDocument(con, state[0], state[1], state[2], state[3], state[4], state[5])
-                        entries.append(state) 
+                        #entries.append(state) 
                     except Exception as e:
-                        logger.error(e)
+                        logger.error(str(e)+'>>'+str(bads[0].text)+','+str(players[0].text)+','+str(total_cache[len(total_cache)-1].text)+' bads >>{'+str(bads)+'} goods >> {'+str(goods)+'}')
                         
                     print('ENTROU BAD > '+bads[0].text)
                     logger.info('ENTROU BAD > '+bads[0].text) 
