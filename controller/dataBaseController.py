@@ -6,7 +6,7 @@ class DataBase:
         err = False
         try:
            print(f'>> Conectando ao banco...')
-           client = pymongo.MongoClient("mongodb+srv://estacione:ZXC*963,@cluster0.l1bma.gcp.mongodb.net/?retryWrites=true&w=majority")
+           client = pymongo.MongoClient("URI")
            db = client.db_blaze
            print(f'conectado com sucesso')
            return err,db
